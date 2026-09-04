@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Попутка ИИ — MVP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header">
+  <div class="brand"><span class="logo">🚗</span><span>Попутка <b>ИИ</b></span></div>
+  <button class="login" id="loginBtn">Войти</button>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="badge">AI-сервис для студентов УрФУ</div>
+    <h1>Поездка до кампуса<br><span>дешевле и быстрее</span></h1>
+    <p>Находим попутчиков по маршруту и времени, рассчитываем справедливую стоимость и показываем лучший вариант.</p>
+
+    <div class="search-card">
+      <div class="field">
+        <label>Откуда</label>
+        <select id="from">
+          <option>УрФУ / Главный корпус</option>
+          <option>Площадь 1905 года</option>
+          <option>Студгородок УрФУ</option>
+        </select>
+      </div>
+      <div class="swap">→</div>
+      <div class="field">
+        <label>Куда</label>
+        <select id="to">
+          <option>Новокольцовский кампус</option>
+          <option>УрФУ / Главный корпус</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Дата</label>
+        <input id="date" type="date">
+      </div>
+      <div class="field">
+        <label>Время</label>
+        <input id="time" type="time" value="08:30">
+      </div>
+      <button class="primary" id="searchBtn">✨ Найти поездку</button>
+    </div>
+
+    <div class="quick">
+      <span>Популярно:</span>
+      <button data-time="08:30">Утро 08:30</button>
+      <button data-time="17:30">Вечер 17:30</button>
+      <button data-time="19:00">После пар 19:00</button>
+    </div>
+  </section>
+
+  <section id="results" class="results hidden">
+    <div class="section-head">
+      <div>
+        <div class="ai-title">✨ AI MATCHING</div>
+        <h2>Лучшие совпадения</h2>
+      </div>
+      <span id="count" class="count"></span>
+    </div>
+    <div id="aiExplain" class="ai-explain"></div>
+    <div id="rideList" class="rides"></div>
+  </section>
+
+  <section class="how">
+    <h2>Как это работает</h2>
+    <div class="steps">
+      <div><b>01</b><h3>Задай маршрут</h3><p>Откуда, куда и когда нужно ехать.</p></div>
+      <div><b>02</b><h3>ИИ ищет совпадения</h3><p>Учитываем время, маршрут и количество мест.</p></div>
+      <div><b>03</b><h3>Бронируй место</h3><p>Видишь водителя, рейтинг и цену поездки.</p></div>
+    </div>
+  </section>
+</main>
+
+<div class="modal hidden" id="modal">
+  <div class="modal-box">
+    <button class="close" id="closeModal">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<footer>Попутка ИИ · MVP для хакатона УрФУ · 2026</footer>
+<script src="app.js"></script>
+</body>
+</html>
