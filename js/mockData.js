@@ -31,3 +31,5 @@ export const simulatedRides = [
   { id: 27, driverName: "Евгений", age: 20, car: "Mazda 6", rating: 4.7, seatsAvailable: 3, departureTime: "16:30", origin: "Новокольцовский кампус", destination: "Главный корпус УрФУ", price: 115, emoji: "🎵", music: "Rock", chatty: true, note: "Едем обратно к ГУКу после 4-й пары" },
   { id: 28, driverName: "Ольга", age: 21, car: "Chery Tiggo", rating: 4.8, seatsAvailable: 4, departureTime: "16:45", origin: "Новокольцовский кампус", destination: "Втузгородок УрФУ", price: 125, emoji: "✨", music: "Pop", chatty: false, note: "Свободный просторный кроссовер" },
   { id: 29, driverName: "Святослав", age: 23, car: "Audi A4", rating: 4.6, seatsAvailable: 2, departureTime: "17:30", origin: "Новокольцовский кампус", destination: "Уралмаш", price: 160, emoji: "☕", music: "Techno", chatty: true, note: "Обратный рейс до Уралмаша без пробок" },
+  { id: 30, driverName: "Татьяна", age: 20, car: "Suzuki Swift", rating: 4.9, seatsAvailable: 2, departureTime: "15:50", origin: "Новокольцовский кампус", destination: "Площадь 1905 года", price: 110, emoji: "💬", music: "Pop", chatty: true, note: "Удобное время, едем сразу после пар" }
+  ];
