@@ -1,3 +1,7 @@
 venv/
+.venv/
+env/
+/env/
 README.md
 .DS_Store
+guide/
