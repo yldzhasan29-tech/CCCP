@@ -1,89 +1,123 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Попутка ИИ — MVP</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Попутка ИИ — студенческий райдшеринг УрФУ</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="header">
-  <div class="brand"><span class="logo">🚗</span><span>Попутка <b>ИИ</b></span></div>
-  <button class="login" id="loginBtn">Войти</button>
+
+<header class="topbar">
+  <div class="brand">🚗 Попутка <span>ИИ</span></div>
+  <div class="subtitle">Студенческий райдшеринг УрФУ · до Новокольцовского кампуса</div>
 </header>
 
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="account">Аккаунт</button>
+  <button class="tab-btn" data-tab="driver">Я водитель</button>
+  <button class="tab-btn" data-tab="passenger">Я пассажир</button>
+  <button class="tab-btn" data-tab="routes">Активные маршруты</button>
+  <button class="tab-btn" data-tab="demand">Спрос и цены</button>
+</nav>
+
 <main>
-  <section class="hero">
-    <div class="badge">AI-сервис для студентов УрФУ</div>
-    <h1>Поездка до кампуса<br><span>дешевле и быстрее</span></h1>
-    <p>Находим попутчиков по маршруту и времени, рассчитываем справедливую стоимость и показываем лучший вариант.</p>
 
-    <div class="search-card">
-      <div class="field">
-        <label>Откуда</label>
-        <select id="from">
-          <option>УрФУ / Главный корпус</option>
-          <option>Площадь 1905 года</option>
-          <option>Студгородок УрФУ</option>
+  <!-- ACCOUNT / SAFETY -->
+  <section id="account" class="tab-panel active">
+    <h2>Регистрация и верификация</h2>
+    <p class="hint">Безопасность: аккаунт подтверждается только через университетскую почту <b>@stud.urfu.ru</b>.</p>
+    <form id="registerForm" class="card-form">
+      <label>Имя <input type="text" name="name" required placeholder="Иван Иванов"></label>
+      <label>Почта <input type="email" name="email" required placeholder="ivan.ivanov@stud.urfu.ru"></label>
+      <label>Экстренный контакт <input type="text" name="emergency_contact" placeholder="+7 900 000-00-00"></label>
+      <button type="submit">Зарегистрироваться / войти</button>
+    </form>
+    <div id="accountResult" class="result-box"></div>
+  </section>
+
+  <!-- DRIVER -->
+  <section id="driver" class="tab-panel">
+    <h2>Опубликовать маршрут</h2>
+    <p class="hint">Например: «еду в 8:30 от Уралмаша, могу взять 2 человек».</p>
+    <form id="routeForm" class="card-form">
+      <label>Откуда
+        <select name="origin_zone" id="driverZone" required></select>
+      </label>
+      <label>Направление
+        <select name="direction" required>
+          <option value="to_campus">В кампус</option>
+          <option value="from_campus">Из кампуса</option>
         </select>
-      </div>
-      <div class="swap">→</div>
-      <div class="field">
-        <label>Куда</label>
-        <select id="to">
-          <option>Новокольцовский кампус</option>
-          <option>УрФУ / Главный корпус</option>
+      </label>
+      <label>Время выезда <input type="time" name="departure_time" required></label>
+      <label>Гибкость (мин) <input type="number" name="flexibility_min" value="15" min="0" max="60"></label>
+      <label>Свободных мест <input type="number" name="seats_total" value="3" min="1" max="6" required></label>
+      <label class="checkbox"><input type="checkbox" name="music" checked> Музыка в машине</label>
+      <label class="checkbox"><input type="checkbox" name="talkative" checked> Готов(а) поболтать</label>
+      <button type="submit">Опубликовать</button>
+    </form>
+    <div id="routeResult" class="result-box"></div>
+  </section>
+
+  <!-- PASSENGER -->
+  <section id="passenger" class="tab-panel">
+    <h2>Найти попутку</h2>
+    <form id="requestForm" class="card-form">
+      <label>Откуда
+        <select name="origin_zone" id="passengerZone" required></select>
+      </label>
+      <label>Направление
+        <select name="direction" required>
+          <option value="to_campus">В кампус</option>
+          <option value="from_campus">Из кампуса</option>
         </select>
-      </div>
-      <div class="field">
-        <label>Дата</label>
-        <input id="date" type="date">
-      </div>
-      <div class="field">
-        <label>Время</label>
-        <input id="time" type="time" value="08:30">
-      </div>
-      <button class="primary" id="searchBtn">✨ Найти поездку</button>
-    </div>
-
-    <div class="quick">
-      <span>Популярно:</span>
-      <button data-time="08:30">Утро 08:30</button>
-      <button data-time="17:30">Вечер 17:30</button>
-      <button data-time="19:00">После пар 19:00</button>
-    </div>
+      </label>
+      <label>Желаемое время <input type="time" name="desired_time" required></label>
+      <label>Гибкость (мин) <input type="number" name="flexibility_min" value="15" min="0" max="60"></label>
+      <label>Количество человек <input type="number" name="passengers_count" value="1" min="1" max="4"></label>
+      <label>Предпочтение по музыке
+        <select name="pref_music">
+          <option value="">Не важно</option>
+          <option value="1">Хочу музыку</option>
+          <option value="0">Без музыки</option>
+        </select>
+      </label>
+      <label>Предпочтение по разговору
+        <select name="pref_talkative">
+          <option value="">Не важно</option>
+          <option value="1">Хочу общаться</option>
+          <option value="0">Хочу тишины</option>
+        </select>
+      </label>
+      <button type="submit">Найти совпадения</button>
+    </form>
+    <div id="matchesResult" class="result-box"></div>
   </section>
 
-  <section id="results" class="results hidden">
-    <div class="section-head">
-      <div>
-        <div class="ai-title">✨ AI MATCHING</div>
-        <h2>Лучшие совпадения</h2>
-      </div>
-      <span id="count" class="count"></span>
-    </div>
-    <div id="aiExplain" class="ai-explain"></div>
-    <div id="rideList" class="rides"></div>
+  <!-- ACTIVE ROUTES -->
+  <section id="routes" class="tab-panel">
+    <h2>Активные маршруты водителей</h2>
+    <button id="refreshRoutes" class="secondary-btn">Обновить список</button>
+    <div id="routesList" class="result-box"></div>
   </section>
 
-  <section class="how">
-    <h2>Как это работает</h2>
-    <div class="steps">
-      <div><b>01</b><h3>Задай маршрут</h3><p>Откуда, куда и когда нужно ехать.</p></div>
-      <div><b>02</b><h3>ИИ ищет совпадения</h3><p>Учитываем время, маршрут и количество мест.</p></div>
-      <div><b>03</b><h3>Бронируй место</h3><p>Видишь водителя, рейтинг и цену поездки.</p></div>
-    </div>
+  <!-- DEMAND / PRICING DASHBOARD -->
+  <section id="demand" class="tab-panel">
+    <h2>Прогноз спроса и динамическое ценообразование</h2>
+    <p class="hint">
+      Модель анализирует историю заявок и предлагает бонус водителям
+      в часы, когда пассажиров больше, чем свободных мест.
+    </p>
+    <div id="demandDashboard" class="result-box"></div>
   </section>
+
 </main>
 
-<div class="modal hidden" id="modal">
-  <div class="modal-box">
-    <button class="close" id="closeModal">×</button>
-    <div id="modalContent"></div>
-  </div>
-</div>
+<footer>
+  Кейс 10 · Студенческий райдшеринг «Попутка ИИ» (хакатон-прототип, без заказчика)
+</footer>
 
-<footer>Попутка ИИ · MVP для хакатона УрФУ · 2026</footer>
 <script src="app.js"></script>
 </body>
 </html>
