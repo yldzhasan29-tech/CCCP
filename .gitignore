@@ -5,3 +5,5 @@ env/
 README.md
 .DS_Store
 guide/
+backend/poputka.db
+backend/__pycache__/
